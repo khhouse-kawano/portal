@@ -4,6 +4,9 @@ import Encoding from 'encoding-japanese';
 import csv from 'csv-parser';
 import axios from 'axios';
 import { shops } from './shops.js';
+import env from 'dotenv';
+env.config();
+
 
 const downloadTownLife = async () => {
     interface Brands {
@@ -13,10 +16,10 @@ const downloadTownLife = async () => {
     }
 
     const brands:Brands[] = [
-        { id: "kh-t@kh-house.jp", pass: "4081Kokubu", name: "KH" },
-        { id: "info-djh@royalhome.co.jp", pass: "Kokubu4081", name:"DJH" },
-        { id: "nagomi@kh-group.jp", pass: "4081Nagomi", name: "Nagomi" },
-        { id: "pgh@kh-group.jp", pass: "4081Pghouse", name: "PGH" }
+        { id: process.env.TOWNLIFE_ID_KH as string, pass: process.env.TOWNLIFE_PASS_KH as string, name: "KH" },
+        { id: process.env.TOWNLIFE_ID_DJH as string, pass: process.env.TOWNLIFE_PASS_DJH as string, name: "DJH" },
+        { id: process.env.TOWNLIFE_ID_NAGOMI as string, pass: process.env.TOWNLIFE_PASS_NAGOMI as string, name: "Nagomi" },
+        { id: process.env.TOWNLIFE_ID_PGH as string, pass: process.env.TOWNLIFE_PASS_PGH as string, name: "PGH" }
     ];
     
 
@@ -143,8 +146,8 @@ const downloadHomes = async () =>{
     }
 
     const brands:Brands[] = [
-        { id: "9110852", pass: "5t5gJsAG", name: "KH" },
-        { id: "9111829", pass: "5UM9Lrwi", name:"DJH" }
+        { id: process.env.HOMES_ID_KH as string, pass: process.env.HOMES_PASS_KH as string, name: "KH" },
+        { id: process.env.HOMES_ID_DJH as string, pass: process.env.HOMES_PASS_DJH as string, name:"DJH" }
     ];
 
     for (const brand of brands) {
@@ -255,9 +258,9 @@ const downloadSuumo = async () =>{
     }
 
     const brands:Brands[] = [
-        { id: "010855400100", pass: "4081kokubu!", name: "KH" },
-        { id: "0108554010", pass: "4081kokubu!!", name: "DJH" },
-        { id: "0108554011", pass: "4081kokubu.", name:"Nagomi" }
+        { id: process.env.SUUMO_ID_KH as string, pass: process.env.SUUMO_PASS_KH as string, name: "KH" },
+        { id: process.env.SUUMO_ID_DJH as string, pass: process.env.SUUMO_PASS_DJH as string, name: "DJH" },
+        { id: process.env.SUUMO_ID_NAGOMI as string, pass: process.env.SUUMO_PASS_NAGOMI as string, name:"Nagomi" }
     ];
 
     for (const brand of brands) {
@@ -388,8 +391,8 @@ const downloadAllGrit = async () =>{
         const page = await context.newPage();
 
         await page.goto('https://line-saas.auka.jp/builder/login');
-        await page.fill('//html/body/div[2]/div/div/div/main/div/div[1]/div/div/div/div/div[3]/form/div[1]/div/div[1]/div/input', "shinji.kawano@kh-group.jp");
-        await page.fill('//html/body/div[2]/div/div/div/main/div/div[1]/div/div/div/div/div[3]/form/div[2]/div/div[1]/div/input', "12345678");
+        await page.fill('//html/body/div[2]/div/div/div/main/div/div[1]/div/div/div/div/div[3]/form/div[1]/div/div[1]/div/input', process.env.ALLGRIT_ID as string);
+        await page.fill('//html/body/div[2]/div/div/div/main/div/div[1]/div/div/div/div/div[3]/form/div[2]/div/div[1]/div/input', process.env.ALLGRIT_PASS as string);
         await page.click('//html/body/div[2]/div/div/div/main/div/div[1]/div/div/div/div/div[3]/form/div[3]/button/span');
         await page.waitForLoadState('load');
 
@@ -513,8 +516,8 @@ const downloadMochiie = async() =>{
     }
 
     const brands:Brands[] =[
-        { id: "djh@kh-group.jp", pass: "kokubuhouzing13577!", name: "DJH"},
-        { id: "nagomi@kh-group.jp", pass: "royalhome13679!", name: "Nagomi"}
+        { id: process.env.MOCHIIE_ID_DJH as string, pass: process.env.MOCHIIE_PASS_DJH as string, name: "DJH"},
+        { id: process.env.MOCHIIE_ID_NAGOMI as string, pass: process.env.MOCHIIE_PASS_NAGOMI as string, name: "Nagomi"}
     ];
 
     for (const brand of brands){
